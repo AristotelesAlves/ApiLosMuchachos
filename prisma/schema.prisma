@@ -1,0 +1,34 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model Mesa {
+  id String @id @default(uuid())
+  mesa Int
+  data DateTime
+  state String
+  pratos Prato[]
+
+  @@map("mesas")
+}
+
+model Prato {
+  id String @id @default(uuid())
+  name  String
+  desc  String
+  obs   String
+  type  String // cozinha || bar
+  valor Float
+
+  mesa Mesa? @relation(fields:[mesa_id], references: [id])
+  mesa_id String? //Chave estrangeira com id da mesa
+}
+
