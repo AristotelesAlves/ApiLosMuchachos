@@ -11,23 +11,23 @@ datasource db {
 }
 
 model Mesa {
-  id     String @id @default(uuid())
+  id     Int @id @unique
   mesa   Int
-  data   DateTime
-  state  String
   pratos Prato[] //array da tabela prato
 
   @@map("mesas") // renomeando nome da tabela do banco de dados
 }
 
 model Prato {
-  id         String @id @default(uuid())
+  id         Int @id @unique
   name       String
   desc       String
   obs        String
-  type       String // cozinha || bar
+  state      String
+  data       DateTime
   valor      Float
 
   mesa Mesa? @relation(fields:[mesa_id], references: [id])
-  mesa_id    String? //Chave estrangeira com id da mesa
+  mesa_id    Int? //Chave estrangeira com id da mesa
+  @@map("pratos")
 }
