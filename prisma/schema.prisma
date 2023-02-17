@@ -7,7 +7,7 @@ generator client {
 
 datasource db {
   provider = "sqlite"
-  url      = env("DATABASE_URL")
+  url      = "file:./dev.db"
 }
 
 model Mesa {
@@ -19,12 +19,12 @@ model Mesa {
 }
 
 model Prato {
-  id         Int @id @unique
+  id         Int @id @default(autoincrement())
   name       String
   desc       String
   obs        String
   state      String
-  data       DateTime
+  data       DateTime @updatedAt
   valor      Float
 
   mesa Mesa? @relation(fields:[mesa_id], references: [id])

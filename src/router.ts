@@ -5,21 +5,21 @@ const prisma = new PrismaClient();
 
 const router = Router();
 
-// router.post("/mesas", async (req,res) => {
-//     const {mesa_id, desc, obs, state, valor, data,name} = req.body;
-//     const prato = await prisma.prato.create({
-//         data:{
-//             name,
-//             desc,
-//             obs,
-//             state,
-//             data,
-//             valor,
-//             mesa_id,
-//         }
-//     });  
-//     return res.json(prato);
-// });
+router.post('/newPrato', async (req, res) => {
+    const {desc, name, obs, state, valor, mesa_id} = req.body;
+    const prato = await prisma.prato.create({
+        data:{
+            desc,
+            name,
+            obs,
+            state,
+            valor,
+            mesa_id
+        }
+    })
+    return res.json(prato);
+})
+
 
 router.get("/mesas", async (req, res) => {
     const mesas = await prisma.mesa.findMany({
