@@ -1,69 +1,19 @@
 import { PrismaClient } from ".prisma/client";
 import { Router } from "express";
+import Controller from "./controller/controller";
 
 const prisma = new PrismaClient();
 
 const router = Router();
 
-router.post('/newPrato', async (req, res) => {
-    const {desc, name, obs, state, valor, mesa_id} = req.body;
-    const prato = await prisma.prato.create({
-        data:{
-            desc,
-            name,
-            obs,
-            state,
-            valor,
-            mesa_id
-        }
-    })
-    return res.json(prato);
-})
+router.post('/newPrato', Controller.NewPrato) //ok
 
+router.get("/mesas", Controller.mesas); //mudar para caixa, fazer um where com id da mesa usando parametros na url
 
-router.get("/mesas", async (req, res) => {
-    const mesas = await prisma.mesa.findMany({
-        include:{
-            pratos: true
-        }
-    })
-    return res.json(mesas);
-});
+router.put(`/update_cozinha/:pratoId`, Controller.update); //ok
 
-router.get("/cozinha", async (req, res) => {
-    const mesas = await prisma.prato.findMany({
-        where: {
-            state: "cozinha"
-        },
-        include:{
-            mesa: true
-        }
-    })
-    return res.json(mesas);
-});
+router.get("/cozinha", Controller.cozinha); // falta so o put pra mudar o estado de cozinha para pronto!
 
-router.get("/bar", async (req, res) => {
-    const mesas = await prisma.prato.findMany({
-        where: {
-            state: "bar"
-        },
-        include:{
-            mesa: true
-        }
-    })
-    return res.json(mesas);
-});
-
-router.get("/caixa", async (req, res) => {
-    const mesas = await prisma.prato.findMany({
-        where: {
-            state: "pronto"
-        },
-        include:{
-            mesa: true
-        }
-    })
-    return res.json(mesas);
-});
+router.get("/bar", Controller.Bar); // ok
 
 export { router };
