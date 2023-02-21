@@ -8,7 +8,9 @@ const router = Router();
 
 router.post('/newPrato', Controller.NewPrato) //ok
 
-router.get("/mesas", Controller.mesas); //ok
+router.get("/mesa/:id", Controller.mesa); //ok
+
+router.get("/mesas", Controller.mesas)
 
 router.put("/updateCozinha/:id", Controller.update); //ok
 

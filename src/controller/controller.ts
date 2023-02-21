@@ -25,14 +25,22 @@ export default {
         res.json(apagar);
     },
 
+    async mesa (req: Request, res: Response) {
+        const {id} = req.params
+        const mesas = await prisma.prato.findMany({
+            where: {
+                mesa_id: Number(id),
+                state: "pronto"   
+            },
+            include:{mesa: true}
+        })
+        return res.json(mesas);
+    },
+
     async mesas (req: Request, res: Response) {
         const mesas = await prisma.mesa.findMany({
             include:{
-                pratos: {
-                     where: {
-                         state:'pronto'
-                     }
-                 }
+                pratos: true
             }
         })
         return res.json(mesas);
