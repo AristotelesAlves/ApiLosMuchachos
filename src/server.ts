@@ -14,5 +14,5 @@ app.use(express.json());
 app.use(router);
 
 app.listen(port, () => { 
-    console.log(`Sering is running on port ${port}`);   
+    console.log(`Sering is running on http://localhost:${port}`);   
  });

@@ -5,22 +5,34 @@ const prisma = new PrismaClient();
 export default {
 
     async update (req: Request, res: Response) {
-        const {pratoId} = req.params
+        const {id} = req.params
         const updateCozinha = await prisma.prato.update({
             where:{
-                id: Number(pratoId)
+                id: Number(id)
             },
-            data: {
-                state: {}
-            }
+            data:{
+                state: "pronto"
+            },
         });
         res.json(updateCozinha);
+    },
+
+    async delete (req: Request, res: Response) {
+        const { id } = req.params;
+        const apagar = await prisma.prato.delete({
+            where:{ id: Number(id)}
+        });
+        res.json(apagar);
     },
 
     async mesas (req: Request, res: Response) {
         const mesas = await prisma.mesa.findMany({
             include:{
-                pratos: true
+                pratos: {
+                     where: {
+                         state:'pronto'
+                     }
+                 }
             }
         })
         return res.json(mesas);
@@ -63,6 +75,30 @@ export default {
             }
         })
         return res.json(mesas);
+    },
+
+    async pronto (req: Request, res: Response) {
+        const mesas = await prisma.prato.findMany({
+            where: {
+                state: "pronto"
+            },
+            include:{
+                mesa: true
+            }
+        })
+        return res.json(mesas);
+    },
+
+    async caixa (req: Request, res: Response) {
+        const mesas = await prisma.prato.findMany({
+            where: {
+                state: "caixa"
+            },
+            include:{
+                mesa: true
+            }
+        })
+        return res.json(mesas);
     }
-    
+
 }

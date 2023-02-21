@@ -8,12 +8,18 @@ const router = Router();
 
 router.post('/newPrato', Controller.NewPrato) //ok
 
-router.get("/mesas", Controller.mesas); //mudar para caixa, fazer um where com id da mesa usando parametros na url
+router.get("/mesas", Controller.mesas); //ok
 
-router.put(`/update_cozinha/:pratoId`, Controller.update); //ok
+router.put("/updateCozinha/:id", Controller.update); //ok
 
-router.get("/cozinha", Controller.cozinha); // falta so o put pra mudar o estado de cozinha para pronto!
+router.delete("/prato/:id", Controller.delete); // ok caso prato seja cancelado!
+
+router.get("/cozinha", Controller.cozinha); //ok
 
 router.get("/bar", Controller.Bar); // ok
+
+router.get("/pronto-para-entrega", Controller.pronto)
+
+router.get("/caixa", Controller.caixa)
 
 export { router };
