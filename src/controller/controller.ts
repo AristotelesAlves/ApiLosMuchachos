@@ -1,10 +1,38 @@
 import { PrismaClient } from ".prisma/client";
 import { Request, Response } from "express";
+
+
 const prisma = new PrismaClient();
 
 export default {
 
-    async update (req: Request, res: Response) {
+    async mesaPaga (req: Request, res: Response){
+        const {id} = req.params;
+        const mesaPaga = await prisma.prato.updateMany({
+            where: {
+                mesa_id: Number(id)
+            },
+            data:{
+                state: 'pago'
+            }
+        })
+        res.json(mesaPaga)
+    },
+
+    async unidadePaga (req: Request, res: Response){
+        const {id} = req.params;
+        const unidadePaga = await prisma.prato.update({
+            where: {
+                id: Number(id)
+            },
+            data:{
+                state: 'pago'
+            }
+        })
+        res.json(unidadePaga)
+    },
+
+    async updateCozinha (req: Request, res: Response) {
         const {id} = req.params
         const updateCozinha = await prisma.prato.update({
             where:{
@@ -30,7 +58,7 @@ export default {
         const mesas = await prisma.prato.findMany({
             where: {
                 mesa_id: Number(id),
-                state: "pronto"   
+                state: "caixa"   
             },
             include:{mesa: true}
         })

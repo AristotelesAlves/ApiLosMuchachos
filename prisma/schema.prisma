@@ -11,7 +11,7 @@ datasource db {
 }
 
 model Mesa {
-  id     Int @id @unique
+  id     Int @id @unique 
   mesa   Int
   pratos Prato[] //array da tabela prato
 
@@ -22,12 +22,13 @@ model Prato {
   id         Int @id @default(autoincrement())
   name       String
   desc       String
-  obs        String
+  obs        String 
   state      String
   data       DateTime @updatedAt
   valor      Float
 
   mesa Mesa? @relation(fields:[mesa_id], references: [id])
   mesa_id    Int? //Chave estrangeira com id da mesa
+  
   @@map("pratos")
 }
