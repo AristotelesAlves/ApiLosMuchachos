@@ -1,31 +1,47 @@
 import { PrismaClient } from ".prisma/client";
 import { Router } from "express";
-import Controller from "./controller/controller";
+
+
+import pedidosProntoParaEntrega from "./controller/caixarController/pedidosProntoParaEntrega";
+import pagamentoPratoDaMesa from "./controller/caixarController/pagamentoPratoDaMesa";
+import cozinhaParaGarcom from "./controller/cozinhaController/cozinhaParaGarcom";
+import pedidosCozinha from "./controller/caixarController/pedidosCozinha";
+import PagamentoMesa from "./controller/caixarController/pagamentoMesa";
+import pedidosCaixa from "./controller/caixarController/pedidosCaixa";
+import buscarMesas from "./controller/caixarController/buscarMesas";
+import pedidosBar from "./controller/caixarController/pedidosBar";
+import mesas from "./controller/caixarController/mesas";
+
+
+import pratos from "./controller/cozinhaController/pratos";
+import novoPedido from "./controller/Garçom/novoPedido";
 
 const prisma = new PrismaClient();
 
 const router = Router();
 
-router.post('/newPrato', Controller.NewPrato) //ok
+router.post('/newPrato', novoPedido.NewPrato) //ok
 
-router.get("/mesa/:id", Controller.mesa); //ok
+router.get("/mesa/:id", buscarMesas.mesa)
 
-router.get("/mesas", Controller.mesas)
+router.get("/mesas", mesas.mesas)
 
-router.put("/updateCozinha/:id", Controller.updateCozinha); //ok
+router.put("/updateCozinha/:id", cozinhaParaGarcom.updateCozinha)
 
-router.delete("/prato/:id", Controller.delete); // ok caso prato seja cancelado!
+// router.delete("/prato/:id", ); // ok caso prato seja cancelado!
 
-router.get("/cozinha", Controller.cozinha); //ok
+router.get("/cozinha", pratos.cozinha)
 
-router.get("/bar", Controller.Bar); // ok
+router.get("/pedidos-na-cozinha", pedidosCozinha.cozinha)
 
-router.get("/pronto-para-entrega", Controller.pronto)
+router.get("/pedidos-no-bar", pedidosBar.Bar)
 
-router.get("/caixa", Controller.caixa)
+router.get("/pronto-para-entrega", pedidosProntoParaEntrega.pronto)
 
-router.put("/unidade-paga/:id", Controller.unidadePaga)
+router.get("/pedidos-no-caixa", pedidosCaixa.caixa)
 
-router.put("/mesaPaga/:id", Controller.mesaPaga)
+router.put("/pagamento-solo/:id",  pagamentoPratoDaMesa.unidadePaga)
 
-export { router };
+router.put("/mesaPaga/:id", PagamentoMesa.mesaPaga)
+
+export { router }; 
