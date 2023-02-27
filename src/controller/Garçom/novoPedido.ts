@@ -5,10 +5,9 @@ const prisma = new PrismaClient();
 
 export default {
     async NewPrato (req: Request, res: Response) {
-        const {desc, name, obs, state, valor, mesa_id} = req.body;
+        const {name, obs, state, valor, mesa_id} = req.body;
         const prato = await prisma.prato.create({
             data:{
-                desc,
                 name,
                 obs,
                 state,

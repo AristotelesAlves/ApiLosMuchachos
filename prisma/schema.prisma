@@ -18,10 +18,14 @@ model Mesa {
   @@map("mesas") // renomeando nome da tabela do banco de dados
 }
 
+// model user {
+//   id         Int @id @default(autoincrement())
+//   user       String
+//   password   String @default()
+// }
 model Prato {
   id         Int @id @default(autoincrement())
   name       String
-  desc       String
   obs        String 
   state      String
   data       DateTime @updatedAt

@@ -44,4 +44,6 @@ router.put("/pagamento-solo/:id",  pagamentoPratoDaMesa.unidadePaga)
 
 router.put("/mesaPaga/:id", PagamentoMesa.mesaPaga)
 
+router.get("/prontoParaEntrega", pedidosProntoParaEntrega.pronto)
+
 export { router }; 
