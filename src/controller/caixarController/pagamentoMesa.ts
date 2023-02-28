@@ -8,7 +8,8 @@ export default {
         const {id} = req.params;
         const mesaPaga = await prisma.prato.updateMany({
             where: {
-                mesa_id: Number(id)
+                number: Number(id),
+                state: "caixa" 
             },
             data:{
                 state: 'pago'

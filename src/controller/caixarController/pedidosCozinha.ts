@@ -8,9 +8,6 @@ export default {
         const mesas = await prisma.prato.findMany({
             where: {
                 state: "cozinha"
-            },
-            include:{
-                mesa: true
             }
         })
         return res.json(mesas);

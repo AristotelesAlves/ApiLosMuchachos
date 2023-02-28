@@ -9,6 +9,7 @@ export default {
         const response = await prisma.prato.update({
             where: {
                 id: Number(id)
+                
             },
             data:{
                 state: 'pago'

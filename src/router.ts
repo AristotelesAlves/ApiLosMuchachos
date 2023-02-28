@@ -15,6 +15,8 @@ import mesas from "./controller/caixarController/mesas";
 
 import pratos from "./controller/cozinhaController/pratos";
 import novoPedido from "./controller/Garçom/novoPedido";
+import confirmandoPedido from "./controller/Garçom/confirmandoPedido";
+import Mesas from "./controller/Garçom/Mesas";
 
 const prisma = new PrismaClient();
 
@@ -44,6 +46,10 @@ router.put("/pagamento-solo/:id",  pagamentoPratoDaMesa.unidadePaga)
 
 router.put("/mesaPaga/:id", PagamentoMesa.mesaPaga)
 
+router.put("/confirmandoPedido/:id", confirmandoPedido.updateCaixa)
+
 router.get("/prontoParaEntrega", pedidosProntoParaEntrega.pronto)
+
+router.get("/mesas/garcom", Mesas.mesas)
 
 export { router }; 

@@ -9,9 +9,6 @@ export default {
         where: {
             state: "cozinha"
         },
-        include:{
-            mesa: true
-        }
     })
     return res.json(mesas);
 }
